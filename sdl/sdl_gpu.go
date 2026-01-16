@@ -516,6 +516,11 @@ type GPUCommandBuffer struct{}
 // [GPURenderPass]: https://wiki.libsdl.org/SDL3/SDL_GPURenderPass
 type GPURenderPass struct{}
 
+// [GPUFence] is an opaque handle representing a fence.
+//
+// [GPUFence]: https://wiki.libsdl.org/SDL3/SDL_GPUFence
+type GPUFence struct{}
+
 // [GPUColorTargetInfo] is a structure specifying the parameters of a color target used by a render pass.
 //
 // [GPUColorTargetInfo]: https://wiki.libsdl.org/SDL3/SDL_GPUColorTargetInfo
@@ -1230,9 +1235,9 @@ func PushGPUVertexUniformData(commandBuffer *GPUCommandBuffer, slotIndex uint32,
 	sdlPushGPUVertexUniformData(commandBuffer, slotIndex, data, length)
 }
 
-// func QueryGPUFence(device *GPUDevice, fence *GPUFence) bool {
-//	return sdlQueryGPUFence(device, fence)
-// }
+func QueryGPUFence(device *GPUDevice, fence *GPUFence) bool {
+	return sdlQueryGPUFence(device, fence)
+}
 
 // [ReleaseGPUBuffer] frees the given buffer as soon as it is safe to do so.
 //
@@ -1245,9 +1250,9 @@ func ReleaseGPUBuffer(device *GPUDevice, buffer *GPUBuffer) {
 //	sdlReleaseGPUComputePipeline(device, compute_pipeline)
 // }
 
-// func ReleaseGPUFence(device *GPUDevice, fence *GPUFence)  {
-//	sdlReleaseGPUFence(device, fence)
-// }
+func ReleaseGPUFence(device *GPUDevice, fence *GPUFence) {
+	sdlReleaseGPUFence(device, fence)
+}
 
 // [ReleaseGPUGraphicsPipeline] frees the given graphics pipeline as soon as it is safe to do so.
 //
@@ -1342,9 +1347,9 @@ func SubmitGPUCommandBuffer(commandBuffer *GPUCommandBuffer) bool {
 	return sdlSubmitGPUCommandBuffer(commandBuffer)
 }
 
-// func SubmitGPUCommandBufferAndAcquireFence(command_buffer *GPUCommandBuffer) *GPUFence {
-//	return sdlSubmitGPUCommandBufferAndAcquireFence(command_buffer)
-// }
+func SubmitGPUCommandBufferAndAcquireFence(command_buffer *GPUCommandBuffer) *GPUFence {
+	return sdlSubmitGPUCommandBufferAndAcquireFence(command_buffer)
+}
 
 // [UnmapGPUTransferBuffer] unmaps a previously mapped transfer buffer.
 //
@@ -1374,17 +1379,17 @@ func WaitAndAcquireGPUSwapchainTexture(commandBuffer *GPUCommandBuffer, window *
 	return sdlWaitAndAcquireGPUSwapchainTexture(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight)
 }
 
-// func WaitForGPUFences(device *GPUDevice, wait_all bool, fences **GPUFence, num_fences uint32) bool {
-//	return sdlWaitForGPUFences(device, wait_all, fences, num_fences)
-// }
+func WaitForGPUFences(device *GPUDevice, wait_all bool, fences **GPUFence, num_fences uint32) bool {
+	return sdlWaitForGPUFences(device, wait_all, fences, num_fences)
+}
 
-// func WaitForGPUIdle(device *GPUDevice) bool {
-//	return sdlWaitForGPUIdle(device)
-// }
+func WaitForGPUIdle(device *GPUDevice) bool {
+	return sdlWaitForGPUIdle(device)
+}
 
-// func WaitForGPUSwapchain(device *GPUDevice, window *Window) bool {
-//	return sdlWaitForGPUSwapchain(device, window)
-// }
+func WaitForGPUSwapchain(device *GPUDevice, window *Window) bool {
+	return sdlWaitForGPUSwapchain(device, window)
+}
 
 // [WindowSupportsGPUPresentMode] determines whether a presentation mode is supported by the window.
 //

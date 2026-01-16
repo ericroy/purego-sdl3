@@ -812,7 +812,7 @@ var (
 	sdlPutAudioStreamData         uintptr
 	// sdlqsort                                 func(unsafe.Pointer, uint64, uint64, CompareCallback)
 	// sdlqsort_r                               func(unsafe.Pointer, uint64, uint64, CompareCallback_r, unsafe.Pointer)
-	// sdlQueryGPUFence                         func(*GPUDevice, *GPUFence) bool
+	sdlQueryGPUFence func(*GPUDevice, *GPUFence) bool
 	sdlQuit          func()
 	sdlQuitSubSystem func(InitFlags)
 	sdlRaiseWindow   func(*Window) bool
@@ -847,7 +847,7 @@ var (
 	sdlReleaseCameraFrame func(*Camera, *Surface)
 	sdlReleaseGPUBuffer   func(*GPUDevice, *GPUBuffer)
 	// sdlReleaseGPUComputePipeline             func(*GPUDevice, *GPUComputePipeline)
-	// sdlReleaseGPUFence                       func(*GPUDevice, *GPUFence)
+	sdlReleaseGPUFence            func(*GPUDevice, *GPUFence)
 	sdlReleaseGPUGraphicsPipeline func(*GPUDevice, *GPUGraphicsPipeline)
 	sdlReleaseGPUSampler          func(*GPUDevice, *GPUSampler)
 	sdlReleaseGPUShader           func(*GPUDevice, *GPUShader)
@@ -1105,11 +1105,11 @@ var (
 	// sdlstrtoul                               func(string, **byte, int32) uint64
 	// sdlstrtoull                              func(string, **byte, int32) uint64
 	// sdlstrupr                                func(string) string
-	sdlSubmitGPUCommandBuffer func(*GPUCommandBuffer) bool
-	// sdlSubmitGPUCommandBufferAndAcquireFence func(*GPUCommandBuffer) *GPUFence
-	sdlSurfaceHasAlternateImages func(*Surface) bool
-	sdlSurfaceHasColorKey        func(*Surface) bool
-	sdlSurfaceHasRLE             func(*Surface) bool
+	sdlSubmitGPUCommandBuffer                func(*GPUCommandBuffer) bool
+	sdlSubmitGPUCommandBufferAndAcquireFence func(*GPUCommandBuffer) *GPUFence
+	sdlSurfaceHasAlternateImages             func(*Surface) bool
+	sdlSurfaceHasColorKey                    func(*Surface) bool
+	sdlSurfaceHasRLE                         func(*Surface) bool
 	// sdlSwapFloat                             func(float32) float32
 	// sdlswprintf                              func(*wchar_t, uint64, *wchar_t) int32
 	sdlSyncWindow func(*Window) bool
@@ -1169,11 +1169,11 @@ var (
 	// sdlWaitAsyncIOResult                     func(*AsyncIOQueue, *AsyncIOOutcome, int32) bool
 	// sdlWaitCondition                         func(*Condition, *Mutex)
 	// sdlWaitConditionTimeout                  func(*Condition, *Mutex, int32) bool
-	sdlWaitEvent        func(*Event) bool
-	sdlWaitEventTimeout func(*Event, int32) bool
-	// sdlWaitForGPUFences                      func(*GPUDevice, bool, **GPUFence, uint32) bool
-	// sdlWaitForGPUIdle                        func(*GPUDevice) bool
-	// sdlWaitForGPUSwapchain                   func(*GPUDevice, *Window) bool
+	sdlWaitEvent           func(*Event) bool
+	sdlWaitEventTimeout    func(*Event, int32) bool
+	sdlWaitForGPUFences    func(*GPUDevice, bool, **GPUFence, uint32) bool
+	sdlWaitForGPUIdle      func(*GPUDevice) bool
+	sdlWaitForGPUSwapchain func(*GPUDevice, *Window) bool
 	// sdlWaitProcess                           func(*Process, bool, *int32) bool
 	// sdlWaitSemaphore                         func(*Semaphore)
 	// sdlWaitSemaphoreTimeout                  func(*Semaphore, int32) bool
@@ -2038,7 +2038,7 @@ func init() {
 	sdlPutAudioStreamData = shared.Get(lib, "SDL_PutAudioStreamData")
 	// purego.RegisterLibFunc(&sdlqsort, lib, "SDL_qsort")
 	// purego.RegisterLibFunc(&sdlqsort_r, lib, "SDL_qsort_r")
-	// purego.RegisterLibFunc(&sdlQueryGPUFence, lib, "SDL_QueryGPUFence")
+	purego.RegisterLibFunc(&sdlQueryGPUFence, lib, "SDL_QueryGPUFence")
 	purego.RegisterLibFunc(&sdlQuit, lib, "SDL_Quit")
 	purego.RegisterLibFunc(&sdlQuitSubSystem, lib, "SDL_QuitSubSystem")
 	purego.RegisterLibFunc(&sdlRaiseWindow, lib, "SDL_RaiseWindow")
@@ -2073,7 +2073,7 @@ func init() {
 	purego.RegisterLibFunc(&sdlReleaseCameraFrame, lib, "SDL_ReleaseCameraFrame")
 	purego.RegisterLibFunc(&sdlReleaseGPUBuffer, lib, "SDL_ReleaseGPUBuffer")
 	// purego.RegisterLibFunc(&sdlReleaseGPUComputePipeline, lib, "SDL_ReleaseGPUComputePipeline")
-	// purego.RegisterLibFunc(&sdlReleaseGPUFence, lib, "SDL_ReleaseGPUFence")
+	purego.RegisterLibFunc(&sdlReleaseGPUFence, lib, "SDL_ReleaseGPUFence")
 	purego.RegisterLibFunc(&sdlReleaseGPUGraphicsPipeline, lib, "SDL_ReleaseGPUGraphicsPipeline")
 	purego.RegisterLibFunc(&sdlReleaseGPUSampler, lib, "SDL_ReleaseGPUSampler")
 	purego.RegisterLibFunc(&sdlReleaseGPUShader, lib, "SDL_ReleaseGPUShader")
@@ -2397,9 +2397,9 @@ func init() {
 	// purego.RegisterLibFunc(&sdlWaitConditionTimeout, lib, "SDL_WaitConditionTimeout")
 	purego.RegisterLibFunc(&sdlWaitEvent, lib, "SDL_WaitEvent")
 	purego.RegisterLibFunc(&sdlWaitEventTimeout, lib, "SDL_WaitEventTimeout")
-	// purego.RegisterLibFunc(&sdlWaitForGPUFences, lib, "SDL_WaitForGPUFences")
-	// purego.RegisterLibFunc(&sdlWaitForGPUIdle, lib, "SDL_WaitForGPUIdle")
-	// purego.RegisterLibFunc(&sdlWaitForGPUSwapchain, lib, "SDL_WaitForGPUSwapchain")
+	purego.RegisterLibFunc(&sdlWaitForGPUFences, lib, "SDL_WaitForGPUFences")
+	purego.RegisterLibFunc(&sdlWaitForGPUIdle, lib, "SDL_WaitForGPUIdle")
+	purego.RegisterLibFunc(&sdlWaitForGPUSwapchain, lib, "SDL_WaitForGPUSwapchain")
 	// purego.RegisterLibFunc(&sdlWaitProcess, lib, "SDL_WaitProcess")
 	// purego.RegisterLibFunc(&sdlWaitSemaphore, lib, "SDL_WaitSemaphore")
 	// purego.RegisterLibFunc(&sdlWaitSemaphoreTimeout, lib, "SDL_WaitSemaphoreTimeout")
