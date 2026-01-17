@@ -2332,7 +2332,7 @@ func init() {
 	// purego.RegisterLibFunc(&sdlstrtoull, lib, "SDL_strtoull")
 	// purego.RegisterLibFunc(&sdlstrupr, lib, "SDL_strupr")
 	purego.RegisterLibFunc(&sdlSubmitGPUCommandBuffer, lib, "SDL_SubmitGPUCommandBuffer")
-	// purego.RegisterLibFunc(&sdlSubmitGPUCommandBufferAndAcquireFence, lib, "SDL_SubmitGPUCommandBufferAndAcquireFence")
+	purego.RegisterLibFunc(&sdlSubmitGPUCommandBufferAndAcquireFence, lib, "SDL_SubmitGPUCommandBufferAndAcquireFence")
 	purego.RegisterLibFunc(&sdlSurfaceHasAlternateImages, lib, "SDL_SurfaceHasAlternateImages")
 	purego.RegisterLibFunc(&sdlSurfaceHasColorKey, lib, "SDL_SurfaceHasColorKey")
 	purego.RegisterLibFunc(&sdlSurfaceHasRLE, lib, "SDL_SurfaceHasRLE")
