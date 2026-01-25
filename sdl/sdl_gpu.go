@@ -6,6 +6,13 @@ import (
 	"github.com/jupiterrider/purego-sdl3/internal/convert"
 )
 
+const (
+	PropGPUDeviceNameString          = "SDL.gpu.device.name"
+	PropGPUDeviceDriverNameString    = "SDL.gpu.device.driver_name"
+	PropGPUDeviceDriverVersionString = "SDL.gpu.device.driver_version"
+	PropGPUDeviceDriverInfoString    = "SDL.gpu.device.driver_info"
+)
+
 // [GPUSwapchainComposition] is a structure specifying the texture format and colorspace of the swapchain textures.
 //
 // [GPUSwapchainComposition]: https://wiki.libsdl.org/SDL3/SDL_GPUSwapchainComposition
@@ -1148,6 +1155,13 @@ func EndGPURenderPass(renderPass *GPURenderPass) {
 // [GetGPUDeviceDriver]: https://wiki.libsdl.org/SDL3/SDL_GetGPUDeviceDriver
 func GetGPUDeviceDriver(device *GPUDevice) string {
 	return sdlGetGPUDeviceDriver(device)
+}
+
+// [GetGPUDeviceProperties] returns the properties for the GPU device.
+//
+// [GetGPUDeviceProperties]: https://wiki.libsdl.org/SDL3/SDL_GetGPUDeviceProperties
+func GetGPUDeviceProperties(device *GPUDevice) PropertiesID {
+	return sdlGetGPUDeviceProperties(device)
 }
 
 // [GetGPUDriver] gets the name of a built in GPU driver.
