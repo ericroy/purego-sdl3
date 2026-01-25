@@ -362,7 +362,6 @@ var (
 	sdlGetGlobalMouseState          func(*float32, *float32) MouseButtonFlags
 	sdlGetGlobalProperties          func() PropertiesID
 	sdlGetGPUDeviceDriver           func(*GPUDevice) string
-	sdlGetGPUDeviceProperties       func(*GPUDevice) PropertiesID
 	sdlGetGPUDriver                 func(int32) string
 	sdlGetGPUShaderFormats          func(*GPUDevice) GPUShaderFormat
 	sdlGetGPUSwapchainTextureFormat func(*GPUDevice, *Window) GPUTextureFormat
@@ -1589,7 +1588,6 @@ func init() {
 	purego.RegisterLibFunc(&sdlGetGlobalMouseState, lib, "SDL_GetGlobalMouseState")
 	purego.RegisterLibFunc(&sdlGetGlobalProperties, lib, "SDL_GetGlobalProperties")
 	purego.RegisterLibFunc(&sdlGetGPUDeviceDriver, lib, "SDL_GetGPUDeviceDriver")
-	purego.RegisterLibFunc(&sdlGetGPUDeviceProperties, lib, "SDL_GetGPUDeviceProperties")
 	purego.RegisterLibFunc(&sdlGetGPUDriver, lib, "SDL_GetGPUDriver")
 	purego.RegisterLibFunc(&sdlGetGPUShaderFormats, lib, "SDL_GetGPUShaderFormats")
 	purego.RegisterLibFunc(&sdlGetGPUSwapchainTextureFormat, lib, "SDL_GetGPUSwapchainTextureFormat")
