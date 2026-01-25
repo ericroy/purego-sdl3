@@ -362,6 +362,7 @@ var (
 	sdlGetGlobalMouseState          func(*float32, *float32) MouseButtonFlags
 	sdlGetGlobalProperties          func() PropertiesID
 	sdlGetGPUDeviceDriver           func(*GPUDevice) string
+	sdlGetGPUDeviceProperties       func(*GPUDevice) PropertiesID
 	sdlGetGPUDriver                 func(int32) string
 	sdlGetGPUShaderFormats          func(*GPUDevice) GPUShaderFormat
 	sdlGetGPUSwapchainTextureFormat func(*GPUDevice, *Window) GPUTextureFormat
@@ -578,8 +579,8 @@ var (
 	// sdlGetWindowParent                       func(*Window) *Window
 	sdlGetWindowPixelDensity func(*Window) float32
 	// sdlGetWindowPixelFormat                  func(*Window) PixelFormat
-	sdlGetWindowPosition func(*Window, *int32, *int32) bool
-	// sdlGetWindowProperties                   func(*Window) PropertiesID
+	sdlGetWindowPosition          func(*Window, *int32, *int32) bool
+	sdlGetWindowProperties        func(*Window) PropertiesID
 	sdlGetWindowRelativeMouseMode func(*Window) bool
 	// sdlGetWindows                            func(*int32) **Window
 	// sdlGetWindowSafeArea                     func(*Window, *Rect) bool
@@ -1588,6 +1589,7 @@ func init() {
 	purego.RegisterLibFunc(&sdlGetGlobalMouseState, lib, "SDL_GetGlobalMouseState")
 	purego.RegisterLibFunc(&sdlGetGlobalProperties, lib, "SDL_GetGlobalProperties")
 	purego.RegisterLibFunc(&sdlGetGPUDeviceDriver, lib, "SDL_GetGPUDeviceDriver")
+	purego.RegisterLibFunc(&sdlGetGPUDeviceProperties, lib, "SDL_GetGPUDeviceProperties")
 	purego.RegisterLibFunc(&sdlGetGPUDriver, lib, "SDL_GetGPUDriver")
 	purego.RegisterLibFunc(&sdlGetGPUShaderFormats, lib, "SDL_GetGPUShaderFormats")
 	purego.RegisterLibFunc(&sdlGetGPUSwapchainTextureFormat, lib, "SDL_GetGPUSwapchainTextureFormat")
@@ -1805,7 +1807,7 @@ func init() {
 	purego.RegisterLibFunc(&sdlGetWindowPixelDensity, lib, "SDL_GetWindowPixelDensity")
 	// purego.RegisterLibFunc(&sdlGetWindowPixelFormat, lib, "SDL_GetWindowPixelFormat")
 	purego.RegisterLibFunc(&sdlGetWindowPosition, lib, "SDL_GetWindowPosition")
-	// purego.RegisterLibFunc(&sdlGetWindowProperties, lib, "SDL_GetWindowProperties")
+	purego.RegisterLibFunc(&sdlGetWindowProperties, lib, "SDL_GetWindowProperties")
 	purego.RegisterLibFunc(&sdlGetWindowRelativeMouseMode, lib, "SDL_GetWindowRelativeMouseMode")
 	// purego.RegisterLibFunc(&sdlGetWindows, lib, "SDL_GetWindows")
 	// purego.RegisterLibFunc(&sdlGetWindowSafeArea, lib, "SDL_GetWindowSafeArea")

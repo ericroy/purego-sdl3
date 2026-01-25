@@ -472,9 +472,9 @@ func GetWindowPosition(window *Window, x *int32, y *int32) bool {
 	return sdlGetWindowPosition(window, x, y)
 }
 
-// func GetWindowProperties(window *Window) PropertiesID {
-//	return sdlGetWindowProperties(window)
-// }
+func GetWindowProperties(window *Window) PropertiesID {
+	return sdlGetWindowProperties(window)
+}
 
 // func GetWindows(count *int32) **Window {
 //	return sdlGetWindows(count)

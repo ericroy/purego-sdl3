@@ -1150,6 +1150,13 @@ func GetGPUDeviceDriver(device *GPUDevice) string {
 	return sdlGetGPUDeviceDriver(device)
 }
 
+// [GetGPUDeviceProperties] returns the properties associated with a GPU device
+//
+// [GetGPUDeviceProperties]: https://wiki.libsdl.org/SDL3/SDL_GetGPUDeviceProperties
+func GetGPUDeviceProperties(device *GPUDevice) PropertiesID {
+	return sdlGetGPUDeviceProperties(device)
+}
+
 // [GetGPUDriver] gets the name of a built in GPU driver.
 //
 // [GetGPUDriver]: https://wiki.libsdl.org/SDL3/SDL_GetGPUDriver
